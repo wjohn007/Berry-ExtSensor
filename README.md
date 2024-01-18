@@ -1,6 +1,6 @@
 # Berry-ExtSensor
 
-A Berry example application for including sensors of remote tasmota controllers.
+A Berry example application for including sensors of remote Tasmota controllers.
 
 
 ## Motivation
@@ -16,11 +16,11 @@ This gave rise to the idea of ​​augmenting a specific device with informatio
 It should merge the sensor-data
 
 
-<img src="images/plan01.png" alt="image" width="70%" height="auto">
+<img src="images/plan01.png" alt="image" width="80%" height="auto">
 
 and also the UI-elements
 
-<img src="images/plan02.png" alt="image" width="70%" height="auto">
+<img src="images/plan02.png" alt="image" width="80%" height="auto">
 
 ## Different Scenes
 
@@ -41,7 +41,7 @@ The UI-field 'Message Counter' increments each time a sensor message is received
 Preparation of the external device
 - a Shelly Plus 1PM is as external device assumed
 - install the [UdpBroker-app](https://github.com/wjohn007/Berry-UdpBroker)
-- ...
+
 
 Prepare the device to be extended
 - upload following files to to the tasmota-controller

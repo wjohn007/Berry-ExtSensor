@@ -27,6 +27,7 @@ copy /y %copyRoot%\Common\Libs.be .
 copy /y %copyRoot%\Common\tool.be .
 copy /y %copyRoot%\Common\ExtSensor.be .
 copy /y %copyRoot%\Common\UdpBroker.be .
+copy /y %copyRoot%\Common\tests\testExtSensor.be .
 copy /y %copyRoot%\AppExtSensor\ExtSensor01.be .
 copy /y %copyRoot%\AppExtSensor\ExtSensor02.be .
 copy /y %copyRoot%\AppExtSensor\README.md .
