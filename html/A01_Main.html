@@ -1,0 +1,141 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>HTML5 Tasmota</title>
+
+    <script>
+
+        function la(info) {
+            let ss = info
+        }
+
+    </script>
+
+</head>
+
+<body>
+    <!-- ============================== 
+
+    komprimierer html
+   http://html-minify.online-domain-tools.com/
+
+  
+    javasript beautifier 
+    https://beautifier.io/
+
+    javascript minifier
+    https://www.toptal.com/developers/javascript-minifier
+
+
+    Specials with Tasmota
+
+    escaper for string.format use %% when '%' is required
+   -->
+
+    <!-- no autoformat for this -->
+    <style>
+        table.berry {
+            max-width: 100%;
+            table-layout: fixed;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #f4f5f0;
+            text-align: center;
+            border-collapse: collapse;
+        }
+    </style>
+
+
+    <!-- ==================================================== -->
+
+
+    <table style="width:100%%">
+        <thead>
+            <tr>
+                <th  colspan="3"> Power-Meter <small>(external sensor shelly 1PM)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Voltage</td>
+                <td> %s </td>
+                <td> V</td>
+            </tr>
+            <tr>
+                <td>Current</td>
+                <td> %s </td>
+                <td> A</td>
+            </tr>
+            <tr>
+                <td>Active Power</td>
+                <td> %s </td>
+                <td> W</td>
+            </tr>
+            <tr>
+                <td>Apparent Power</td>
+                <td> %s </td>
+                <td> VA</td>
+            </tr>
+            <tr>
+                <td>Reactive Power</td>
+                <td> %s </td>
+                <td> VAr</td>
+            </tr>
+            <tr>
+                <td>Power Factor</td>
+                <td> %s </td>
+                <td> </td>
+            </tr>
+            <tr>
+                <td>Energy Today</td>
+                <td> %s </td>
+                <td>kWh</td>
+            </tr>
+            <tr>
+                <td>Energy Yesterday</td>
+                <td> %s </td>
+                <td>kWh</td>
+            </tr>
+            <tr>
+                <td>Energy Total</td>
+                <td> %s </td>
+                <td>kWh</td>
+            </tr>
+            <tr>
+                <td>Message Counter</td>
+                <td> %s </td>
+                <td></td>
+            </tr>     
+        </tbody>
+    </table>
+
+
+    <!-- ==================================================== -->
+
+
+
+    <!--  script must be located in the static part of html; use web_add_main_button -->
+    <script>
+        function dola(obj) {
+            let value = obj.value == "" ? "1" : obj.value;
+            let id = obj.getAttribute("id");
+            let ss = "&" + id + "=" + value;
+            //obj.innerHTML = id;
+            la(ss);
+        }
+    </script>
+
+
+
+    <!-- ============================== -->
+
+</body>
+
+</html>
