@@ -176,10 +176,17 @@ class UdpBroker
                 try
                     m.closure(topic,payload)
                 except .. as exname, exmsg
-                    self.warn(cproc, exname + " - " + exmsg)
+                    self.warn(cproc, str(exname) + " - " + str(exmsg))
                 end
             end
         end
+    end
+
+    def every_hour()
+        var cproc="every_hour"
+        self.info(cproc,"begin")
+
+        self.restart()
     end
 
     #-
@@ -244,22 +251,33 @@ class UdpBroker
         self.process(msg.topic,msg.payload)
     end
 
+    def restart()
+        var cproc="restart"
+        self.stop(true)
+        self.start(true)
+        self.info(cproc,"done")
+    end
+
     # start the udp-listener
-    def start()
+    def start(isRestart)
 	   var cproc="start"
-       if (self.udp!=nil)
-         return
+
+       if (self.udp != nil)
+            self.warn(cproc,"udp client not null")
+            return
        end
+
+       isRestart = isRestart==true
 
        self.udp = udp()      
        var result = self.udp.begin_multicast(self.IP, self.PORT)
-       self.warn(cproc,"broker started with result:"+str(result))
+       self.warn(cproc,"broker started with result:"+str(result)+ " and isRestart="+ str(isRestart))
 
-       if self.onStarted
+       if self.onStarted && !isRestart
             try
                 self.onStarted(self)
             except .. as exname, exmsg
-                self.warn(cproc, exname + " - " + exmsg)
+                self.warn(cproc, str(exname) + " - " + str(exmsg))
             end  
        end
 
@@ -267,21 +285,23 @@ class UdpBroker
     end
 
     # stops the udp-listener
-    def stop()
+    def stop(isRestart)
         var cproc="stop"
         if (self.udp==nil)
             return
         end  
 
-        self.udp.close()
-        self.udp=nil
-        self.warn(cproc,"broker stopped")
+        isRestart = isRestart==true
 
-        if self.onStopped
+        self.udp.close()
+        self.udp = nil
+        self.warn(cproc,"broker stopped isRestart=" + str(isRestart))
+
+        if self.onStopped  && !isRestart
             try
                 self.onStopped(self)
             except .. as exname, exmsg
-                self.warn(cproc, exname + " - " + exmsg)
+                self.warn(cproc, str(exname) + " - " + str(exmsg))
             end  
        end
 
@@ -458,6 +478,7 @@ class UdpBroker
         self.stop()
 
         tasmota.remove_driver(self)
+        tasmota.remove_cron("udpBroker")
         self.warn(cproc,"deinit done")    
 
     end
@@ -494,7 +515,7 @@ class UdpBroker
         self.infoEnable = false	
         self.addCommands()
         tasmota.add_driver(self)
-
+        tasmota.add_cron("0 0 * * * *", /-> self.every_hour(),"udpBroker") # each hour
         tasmota.add_rule("Wifi#Connected", / -> self.start()) 
         tasmota.add_rule("Wifi#Disconnected", / -> self.stop()) 
 
